@@ -27,6 +27,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/searchEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_baseline_search_24" />
+
+
     <Button
         android:id="@+id/toDetailsActivityButton"
         android:layout_width="match_parent"
