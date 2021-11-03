@@ -1,15 +1,25 @@
 package com.geekbrains.tests
 
+import android.content.Context
+import android.content.Intent
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import com.geekbrains.tests.automator.BehaviorTest
 import com.geekbrains.tests.view.details.DetailsActivity
 import junit.framework.TestCase
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 
@@ -73,6 +83,62 @@ class DetailsActivityEspressoTest {
     fun activityButtonDecrement_IsWorking() {
         onView(withId(R.id.decrementButton)).perform(click())
         onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: -1")))
+    }
+
+    @Test
+    fun activityButtonIncrement_IsWorking_AutomatorTest() {
+        val uiDevice: UiDevice = UiDevice.getInstance(getInstrumentation())
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val packageName = context.packageName
+
+        uiDevice.pressHome()
+        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
+        intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        context.startActivity(intent)
+        uiDevice.wait(Until.hasObject(By.pkg(packageName).depth(0)), BehaviorTest.TIMEOUT)
+
+        uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+            .click()
+        uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            BehaviorTest.TIMEOUT
+        )
+
+        uiDevice.findObject(By.res(packageName, "incrementButton"))
+            .click()
+
+        val changedText = uiDevice.findObject(By.res(packageName, "totalCountTextView"))
+            .text
+
+        assertEquals("Number of results: 1", changedText)
+    }
+
+    @Test
+    fun activityButtonDecrement_IsWorking_AutomatorTest() {
+        val uiDevice: UiDevice = UiDevice.getInstance(getInstrumentation())
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val packageName = context.packageName
+
+        uiDevice.pressHome()
+        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
+        intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        context.startActivity(intent)
+        uiDevice.wait(Until.hasObject(By.pkg(packageName).depth(0)), BehaviorTest.TIMEOUT)
+
+        uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+            .click()
+        uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            BehaviorTest.TIMEOUT
+        )
+
+        uiDevice.findObject(By.res(packageName, "decrementButton"))
+            .click()
+
+        val changedText = uiDevice.findObject(By.res(packageName, "totalCountTextView"))
+            .text
+
+        assertEquals("Number of results: -1", changedText)
     }
 
     @After
