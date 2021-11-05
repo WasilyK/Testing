@@ -5,7 +5,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import com.geekbrains.test.TEST_NUMBER
+import com.geekbrains.tests.TEST_NUMBER
 import com.geekbrains.tests.R
 import org.junit.After
 import org.junit.Before

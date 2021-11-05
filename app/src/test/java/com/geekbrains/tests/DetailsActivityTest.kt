@@ -9,9 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.geekbrains.test.TEST_NUMBER_OF_RESULTS_MINUS_1
-import com.geekbrains.test.TEST_NUMBER_OF_RESULTS_PLUS_1
-import com.geekbrains.test.TEST_NUMBER_OF_RESULTS_ZERO
 import com.geekbrains.tests.view.details.DetailsActivity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
