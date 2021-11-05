@@ -5,6 +5,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import com.geekbrains.test.TEST_NUMBER
 import com.geekbrains.tests.R
 import org.junit.After
 import org.junit.Before
@@ -32,7 +33,7 @@ class MainActivityTest {
             .perform(ViewActions.pressImeActionButton())
 
         Espresso.onView(ViewMatchers.withId(R.id.totalCountTextView))
-                .check(ViewAssertions.matches(ViewMatchers.withText("Number of results: 42")))
+                .check(ViewAssertions.matches(ViewMatchers.withText("Number of results: $TEST_NUMBER")))
 
     }
 }

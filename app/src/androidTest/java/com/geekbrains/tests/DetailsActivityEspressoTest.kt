@@ -14,6 +14,8 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import com.geekbrains.test.TEST_NUMBER_OF_RESULTS_MINUS_1
+import com.geekbrains.test.TEST_NUMBER_OF_RESULTS_PLUS_1
 import com.geekbrains.tests.automator.BehaviorTest
 import com.geekbrains.tests.view.details.DetailsActivity
 import junit.framework.TestCase
@@ -76,13 +78,15 @@ class DetailsActivityEspressoTest {
     @Test
     fun activityButtonIncrement_IsWorking() {
         onView(withId(R.id.incrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(
+            TEST_NUMBER_OF_RESULTS_PLUS_1)))
     }
 
     @Test
     fun activityButtonDecrement_IsWorking() {
         onView(withId(R.id.decrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: -1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(
+            TEST_NUMBER_OF_RESULTS_MINUS_1)))
     }
 
     @Test
@@ -110,7 +114,7 @@ class DetailsActivityEspressoTest {
         val changedText = uiDevice.findObject(By.res(packageName, "totalCountTextView"))
             .text
 
-        assertEquals("Number of results: 1", changedText)
+        assertEquals(TEST_NUMBER_OF_RESULTS_PLUS_1, changedText)
     }
 
     @Test
@@ -138,7 +142,7 @@ class DetailsActivityEspressoTest {
         val changedText = uiDevice.findObject(By.res(packageName, "totalCountTextView"))
             .text
 
-        assertEquals("Number of results: -1", changedText)
+        assertEquals(TEST_NUMBER_OF_RESULTS_MINUS_1, changedText)
     }
 
     @After
